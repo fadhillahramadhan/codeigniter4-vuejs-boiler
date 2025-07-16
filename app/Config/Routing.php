@@ -94,7 +94,7 @@ class Routing extends BaseRouting
      *
      * If FALSE, will stop searching and do NO automatic routing.
      */
-    public bool $autoRoute = false;
+    public bool $autoRoute = true;
 
     /**
      * For Defined Routes.
@@ -125,7 +125,9 @@ class Routing extends BaseRouting
      *
      * @var array<string, string>
      */
-    public array $moduleRoutes = [];
+    public array $moduleRoutes = [
+        'api' => 'App\Controllers\Api',
+    ];
 
     /**
      * For Auto Routing (Improved).

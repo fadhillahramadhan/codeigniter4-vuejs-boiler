@@ -22,7 +22,10 @@
 					<button @click="toggleMenu">&#9776;</button>
 				</li>
 				<li class="menu-item" :class="{ hidden: !menuVisible }">
-					<a href="#">Home</a>
+					<a href="/">Home</a>
+				</li>
+				<li class="menu-item" :class="{ hidden: !menuVisible }">
+					<a href="/dashboard">Dashboard</a>
 				</li>
 				<li class="menu-item" :class="{ hidden: !menuVisible }">
 					<a

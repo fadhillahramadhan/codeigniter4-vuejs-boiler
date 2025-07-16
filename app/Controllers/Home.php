@@ -8,7 +8,8 @@ class Home extends BaseController
     {
         // Data to pass to the Vue app (if needed)
         $data = [
-            'title' => 'CodeIgniter 4 + Vue 3 - Welcome'
+            'title' => 'CodeIgniter 4 + Vue 3 - Welcome',
+            'currentPage' => 'home'
         ];
 
         return view('vue_app', $data);

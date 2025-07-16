@@ -2,7 +2,8 @@
 	<div id="app">
 		<Header />
 		<main class="container">
-			<Welcome />
+			<!-- Dynamic component rendering based on server route -->
+			<component :is="currentComponent" :serverData="serverData" />
 		</main>
 		<Footer />
 	</div>
@@ -11,6 +12,8 @@
 <script>
 import Header from './components/Header.vue';
 import Welcome from './components/Welcome.vue';
+import Dashboard from './components/Dashboard.vue';
+import Profile from './components/Profile.vue';
 import Footer from './components/Footer.vue';
 
 export default {
@@ -18,7 +21,30 @@ export default {
 	components: {
 		Header,
 		Welcome,
+		Dashboard,
+		Profile,
 		Footer,
+	},
+	data() {
+		return {
+			serverData: window.serverData || {},
+		};
+	},
+	computed: {
+		currentComponent() {
+			// Map server pages to Vue components
+			const pageComponents = {
+				home: 'Welcome',
+				dashboard: 'Dashboard',
+				profile: 'Profile',
+			};
+
+			return pageComponents[this.serverData.currentPage] || 'Welcome';
+		},
+	},
+	mounted() {
+		// You can also access server data here for global setup
+		console.log('Server data:', this.serverData);
 	},
 };
 </script>

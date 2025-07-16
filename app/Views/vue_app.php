@@ -31,8 +31,21 @@
 </head>
 
 <body>
+    <!-- Pass server data to Vue -->
+    <script>
+        window.serverData = <?= json_encode([
+                                'currentPage' => $currentPage ?? 'home',
+                                'userData' => $userData ?? null,
+                                'stats' => $stats ?? null,
+                                'user' => $user ?? null,
+                                'postData' => $postData ?? null,
+                                'csrfToken' => csrf_hash(),
+                                'baseUrl' => base_url()
+                            ]) ?>;
+    </script>
+
     <!-- Vue 3 Application Mount Point -->
-    <div id="app">
+    <div id="app" data-page="<?= $currentPage ?? 'home' ?>">
         <!-- Loading spinner while Vue loads -->
         <div style="
             display: flex; 

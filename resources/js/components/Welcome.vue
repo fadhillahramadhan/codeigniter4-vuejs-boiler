@@ -12,7 +12,7 @@
 			<p>
 				Counter: <strong>{{ counter }}</strong>
 			</p>
-			<button @click="increment" class="btn">Incremen 2</button>
+			<button @click="increment" class="btn">Incremen 3</button>
 			<button @click="decrement" class="btn">Decrement</button>
 			<button @click="reset" class="btn btn-secondary">Reset</button>
 		</div>

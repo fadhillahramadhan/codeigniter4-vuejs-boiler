@@ -19,6 +19,9 @@
 # Uploads
 /writable/uploads/
 
+# Debug bar files
+/writable/debugbar/
+
 # Environment and database
 .env
 database.db
