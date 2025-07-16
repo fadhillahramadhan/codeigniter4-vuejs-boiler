@@ -1,68 +1,177 @@
-# CodeIgniter 4 Application Starter
+# CodeIgniter 4 + Vue 3 Integration
 
-## What is CodeIgniter?
+This project integrates Vue.js 3 with CodeIgniter 4 using Vite as the build tool.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+**Author:** Fadhillah Ramadham
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## Getting Started
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+### Prerequisites
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+-   PHP 8.1 or higher
+-   Node.js 16.0 or higher
+-   npm or yarn
 
-## Installation & updates
+### Installation
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+1. **Install PHP dependencies:**
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+    ```bash
+    composer install
+    ```
 
-## Setup
+2. **Install Node.js dependencies:**
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+    ```bash
+    npm install
+    ```
 
-## Important Change with index.php
+3. **Copy environment file:**
+    ```bash
+    cp env .env
+    ```
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+### Development
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+#### Start the development servers:
 
-**Please** read the user guide for a better explanation of how CI4 works!
+1. **Start Vite development server (for Vue.js hot reloading):**
 
-## Repository Management
+    ```bash
+    npm run dev
+    ```
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+2. **Start CodeIgniter development server (in a separate terminal):**
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+    ```bash
+    php spark serve
+    ```
 
-## Server Requirements
+3. **Open your browser:**
+   Navigate to `http://localhost:8080`
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+The Vue application will be served with hot module replacement (HMR) for fast development.
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+### Production Build
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+1. **Build the Vue application for production:**
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+    ```bash
+    npm run build
+    ```
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+2. **Set environment to production:**
+   In your `.env` file, set:
+    ```
+    CI_ENVIRONMENT = production
+    ```
+
+The built files will be placed in `public/dist/` and will be automatically served in production mode.
+
+## Project Structure
+
+```
+├── app/
+│   ├── Controllers/
+│   │   └── Home.php          # Updated to serve Vue app
+│   └── Views/
+│       └── vue_app.php       # Main template that loads Vue
+├── resources/
+│   └── js/
+│       ├── main.js           # Vue application entry point
+│       ├── App.vue           # Main Vue component
+│       └── components/       # Vue components
+│           ├── Header.vue
+│           ├── Welcome.vue
+│           └── Footer.vue
+├── public/
+│   └── dist/                 # Built assets (generated)
+├── package.json              # Node.js dependencies
+└── vite.config.js           # Vite configuration
+```
+
+## Features
+
+-   ✅ Vue 3 with Composition API
+-   ✅ Vite for fast development and optimal builds
+-   ✅ Hot Module Replacement (HMR)
+-   ✅ Automatic production/development mode switching
+-   ✅ CodeIgniter 4 integration
+-   ✅ Component-based architecture
+-   ✅ Responsive design
+
+## Adding New Vue Components
+
+1. Create your component in `resources/js/components/`
+2. Import and use it in your parent components
+3. The Vite dev server will automatically reload with your changes
+
+## API Integration
+
+To make API calls from Vue to CodeIgniter:
+
+1. Create API controllers in `app/Controllers/`
+2. Define routes in `app/Config/Routes.php`
+3. Use fetch or axios in your Vue components to call the APIs
+
+Example API controller:
+
+```php
+<?php
+namespace App\Controllers;
+
+class Api extends BaseController
+{
+    public function users()
+    {
+        return $this->response->setJSON([
+            'status' => 'success',
+            'data' => ['user1', 'user2']
+        ]);
+    }
+}
+```
+
+Example Vue API call:
+
+```javascript
+// In your Vue component
+async function fetchUsers() {
+	const response = await fetch('/api/users');
+	const data = await response.json();
+	return data;
+}
+```
+
+## Troubleshooting
+
+### Vue app doesn't load
+
+-   Make sure both Vite dev server (`npm run dev`) and CodeIgniter server (`php spark serve`) are running
+-   Check that Vite is running on port 5173 (default)
+
+### Production build issues
+
+-   Run `npm run build` to generate production assets
+-   Make sure your web server can serve files from `public/dist/`
+
+### CORS issues during development
+
+-   The template automatically handles development/production modes
+-   Ensure your CodeIgniter base URL is configured correctly
+
+## Commands Reference
+
+```bash
+# Development
+npm run dev              # Start Vite dev server
+php spark serve          # Start CodeIgniter server
+
+# Production
+npm run build            # Build for production
+npm run preview          # Preview production build
+
+# Package management
+npm install              # Install dependencies
+composer install        # Install PHP dependencies
+```
