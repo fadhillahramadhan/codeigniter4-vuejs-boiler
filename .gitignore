@@ -1,0 +1,66 @@
+#-------------------------
+# CodeIgniter 4 gitignore
+#-------------------------
+
+# CodeIgniter 4 specific files
+/vendor/
+/system/
+/public/index.php
+
+# Log files
+/writable/logs/
+
+# Cache files
+/writable/cache/
+
+# Session files
+/writable/session/
+
+# Uploads
+/writable/uploads/
+
+# Environment and database
+.env
+database.db
+
+#-------------------------
+# Node.js & Vue.js
+#-------------------------
+
+# Dependencies
+node_modules/
+
+# Build outputs
+/public/dist/
+dist/
+
+# Development
+.vite/
+*.local
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# npm
+npm-debug.log*
+
+# Yarn
+yarn-debug.log*
+yarn-error.log*
+
+# pnpm
+pnpm-debug.log*
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
